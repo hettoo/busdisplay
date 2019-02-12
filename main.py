@@ -16,7 +16,12 @@ CLOCK_SIZE = 44
 FONT = 'Droid Sans'
 
 def req(query):
-    return json.loads(urllib.request.urlopen('https://api.tfl.gov.uk/%s?app_id=%s&app_key=%s' % (query, app_id, app_key)).read())
+    try:
+        page = urllib.request.urlopen('https://api.tfl.gov.uk/%s?app_id=%s&app_key=%s' % (query, app_id, app_key))
+        j = page.read()
+        return json.loads(j)
+    except:
+        return []
 
 def countdown(l, t):
     for i in range(0, len(l)):
